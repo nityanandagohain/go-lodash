@@ -4,7 +4,7 @@ type DifferenceType interface {
 	int | int8 | int16 | int32 | int64 | float32 | float64 | string
 }
 
-func Difference[V IntersectionType](array []V, values []V) []V {
+func Difference[V DifferenceType](array []V, values []V) []V {
 
 	result := []V{}
 

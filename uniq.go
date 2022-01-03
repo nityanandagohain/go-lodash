@@ -4,7 +4,7 @@ type UniqType interface {
 	int | int8 | int16 | int32 | int64 | float32 | float64 | string
 }
 
-func Uniq[V LastIndexOfType](array []V) []V {
+func Uniq[V UniqType](array []V) []V {
 	lookup := map[V]bool{}
 	for i := 0; i < len(array); i++ {
 		if _, ok := lookup[array[i]]; !ok {
