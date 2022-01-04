@@ -19,3 +19,18 @@ func Uniq[V UniqType](array []V) []V {
 
 	return result
 }
+
+type UniqByFunc[V UniqType, X UniqType] func(value V, index int, array []V) X
+
+func UniqBy[V UniqType, X UniqType](array []V, uniqFunc UniqByFunc[V, X]) []V {
+	lookup := map[X]bool{}
+	result := make([]V, 0, len(lookup))
+	for i := 0; i < len(array); i++ {
+		val := uniqFunc(array[i], i, array)
+		if _, ok := lookup[val]; !ok {
+			lookup[val] = true
+			result = append(result, array[i])
+		}
+	}
+	return result
+}

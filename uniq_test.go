@@ -1,6 +1,7 @@
 package go_lodash
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -30,4 +31,14 @@ func TestUniq_string(t *testing.T) {
 	input := []string{"hello", "world", "world"}
 	res := Uniq(input)
 	is.ElementsMatch([]string{"hello", "world"}, res)
+}
+
+func TestUniqBy(t *testing.T) {
+	is := assert.New(t)
+	input := []float32{2.1, 1.2, 2.3}
+	res := UniqBy(input, func(value float32, index int, array []float32) int {
+		fmt.Println(int(value))
+		return int(value)
+	})
+	is.ElementsMatch([]float32{2.1, 1.2}, res)
 }
