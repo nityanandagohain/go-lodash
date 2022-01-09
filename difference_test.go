@@ -48,3 +48,13 @@ func TestDifference_String(t *testing.T) {
 		})
 	}
 }
+
+func TestDifferenceByFunc(t *testing.T) {
+	is := assert.New(t)
+
+	res := DifferenceBy([]float32{2.1, 1.2}, []float32{2.3, 3.5}, func(value float32) int {
+		return int(value)
+	})
+	is.Equal([]float32{1.2}, res)
+
+}

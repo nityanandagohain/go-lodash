@@ -23,3 +23,25 @@ func Difference[V DifferenceType](array []V, values []V) []V {
 
 	return result
 }
+
+type DifferenceFunc[V DifferenceType, X DifferenceType] func(value V) X
+
+func DifferenceBy[V DifferenceType, X DifferenceType](array []V, values []V, differenceByFunc DifferenceFunc[V, X]) []V {
+
+	result := []V{}
+
+	lookup := map[X]bool{}
+
+	// create a lookup
+	for _, val := range values {
+		lookup[differenceByFunc(val)] = true
+	}
+
+	for _, val := range array {
+		if _, ok := lookup[differenceByFunc(val)]; !ok {
+			result = append(result, val)
+		}
+	}
+
+	return result
+}
