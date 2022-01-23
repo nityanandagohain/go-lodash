@@ -18,4 +18,5 @@ Supportss Go version 1.18beta1
 - [x] DropWhile -> DropWhileFunc
 - [x] DropRight
 - [x] DropRightWhile -> DropRightWhileFunc
-- [ ] fill
+- [x] fill
+- [ ] findIndex
