@@ -5,18 +5,18 @@ type ChunkType interface {
 }
 
 func Chunk[V ChunkType](array []V, size int) [][]V {
-	res := [][]V{}
+	res := make([][]V, 0)
 	start := 0
 	length := len(array)
-	for end := 1; end < length; end++ {
-		if ((end - start) % size) == 0 {
-			res = append(res, array[start:end])
-			start = end
+
+	for start < length {
+		end := start + size
+		if end > length {
+			end = length
 		}
+		res = append(res, array[start:end])
+		start = end
 	}
 
-	if start < length {
-		res = append(res, array[start:])
-	}
 	return res
 }

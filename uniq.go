@@ -10,7 +10,7 @@ type UniqType interface {
 
 func Uniq[V UniqType](array []V) []V {
 	if len(array) == 0 {
-		return []V{}
+		return array
 	}
 
 	out := make([]V, len(array))

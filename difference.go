@@ -5,14 +5,12 @@ type DifferenceType interface {
 }
 
 func Difference[V DifferenceType](array []V, values []V) []V {
-
-	result := []V{}
-
-	lookup := map[V]bool{}
+	result := make([]V, 0)
+	lookup := map[V]struct{}{}
 
 	// create a lookup
 	for _, val := range values {
-		lookup[val] = true
+		lookup[val] = struct{}{}
 	}
 
 	for _, val := range array {
@@ -20,21 +18,18 @@ func Difference[V DifferenceType](array []V, values []V) []V {
 			result = append(result, val)
 		}
 	}
-
 	return result
 }
 
 type DifferenceFunc[V DifferenceType, X DifferenceType] func(value V) X
 
 func DifferenceBy[V DifferenceType, X DifferenceType](array []V, values []V, differenceByFunc DifferenceFunc[V, X]) []V {
-
-	result := []V{}
-
-	lookup := map[X]bool{}
+	result := make([]V, 0)
+	lookup := map[X]struct{}{}
 
 	// create a lookup
 	for _, val := range values {
-		lookup[differenceByFunc(val)] = true
+		lookup[differenceByFunc(val)] = struct{}{}
 	}
 
 	for _, val := range array {
