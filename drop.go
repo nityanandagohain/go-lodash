@@ -21,25 +21,19 @@ func DropRight[V DropType](array []V, n int) []V {
 type WhileFunc[V DropType] func(value V, index int, array []V) bool
 
 func DropWhileFunc[V DropType](array []V, whilefunc WhileFunc[V]) []V {
-	till := 0
-	for index, val := range array {
-		if !whilefunc(val, index, array) {
-			till = index
-			break
+	for i, v := range array {
+		if !whilefunc(v, i, array) {
+			return array[i:]
 		}
 	}
-	return array[till:]
+	return []V{}
 }
 
 func DropWhileRightFunc[V DropType](array []V, whilefunc WhileFunc[V]) []V {
-	from := 0
-	index := len(array) - 1
-	for ; index >= 0; index-- {
-		val := array[index]
-		if !whilefunc(val, index, array) {
-			from = index
-			break
+	for i := len(array) - 1; i >= 0; i-- {
+		if !whilefunc(array[i], i, array) {
+			return array[:i+1]
 		}
 	}
-	return array[:from+1]
+	return []V{}
 }

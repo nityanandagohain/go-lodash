@@ -5,13 +5,10 @@ type ReverseType interface {
 }
 
 func Reverse[V ReverseType](array []V) []V {
-	var temp V
-	i, j := 0, len(array)-1
-	for ; i < (len(array)-1)/2; i++ {
-		temp = array[j]
-		array[j] = array[i]
-		array[i] = temp
-		j--
+	for i := len(array)/2 - 1; i >= 0; i-- {
+		opp := len(array) - 1 - i
+		array[i], array[opp] = array[opp], array[i]
 	}
+
 	return array
 }

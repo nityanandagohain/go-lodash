@@ -42,3 +42,68 @@ func TestUniqBy(t *testing.T) {
 	})
 	is.ElementsMatch([]float32{2.1, 1.2}, res)
 }
+
+func BenchmarkUniq(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		for _, tt := range UniqTests {
+			Uniq(tt.array)
+		}
+	}
+}
+
+func BenchmarkUniq1(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		for _, tt := range UniqTests {
+			Uniq1(tt.array)
+		}
+	}
+}
+
+func BenchmarkUniqBy(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		for _, tt := range UniqTests {
+			UniqBy(tt.array, func(value int, index int, array []int) int {
+				return value
+			})
+		}
+	}
+}
+
+func BenchmarkUniqBy1(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		for _, tt := range UniqTests {
+			UniqBy1(tt.array, func(value int, index int, array []int) int {
+				return value
+			})
+		}
+	}
+}
+
+func Uniq1[V UniqType](array []V) []V {
+	lookup := map[V]bool{}
+	for i := 0; i < len(array); i++ {
+		if _, ok := lookup[array[i]]; !ok {
+			lookup[array[i]] = true
+		}
+	}
+
+	result := make([]V, 0, len(lookup))
+	for key := range lookup {
+		result = append(result, key)
+	}
+
+	return result
+}
+
+func UniqBy1[V UniqType, X UniqType](array []V, uniqFunc UniqByFunc[V, X]) []V {
+	lookup := map[X]bool{}
+	result := make([]V, 0, len(lookup))
+	for i := 0; i < len(array); i++ {
+		val := uniqFunc(array[i], i, array)
+		if _, ok := lookup[val]; !ok {
+			lookup[val] = true
+			result = append(result, array[i])
+		}
+	}
+	return result
+}

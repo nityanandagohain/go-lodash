@@ -14,12 +14,15 @@ func IndexOf[V IndexOfType](array []V, value V, options *IndexOfOptions) int {
 		fromIndex = *options.FromIndex
 	}
 
-	if fromIndex >= 0 {
-		for i := fromIndex; i < len(array); i++ {
-			if array[i] == value {
-				return i
-			}
+	if fromIndex < 0 {
+		fromIndex = 0
+	}
+
+	for i := fromIndex; i < len(array); i++ {
+		if array[i] == value {
+			return i
 		}
 	}
+
 	return -1
 }
