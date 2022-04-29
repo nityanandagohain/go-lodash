@@ -2,7 +2,6 @@
 
 * go implementation of the popular lodash library.
 
-
 Supportss Go version 1.18beta1
 
 
@@ -19,4 +18,4 @@ Supportss Go version 1.18beta1
 - [x] DropRight
 - [x] DropRightWhile -> DropRightWhileFunc
 - [x] fill
-- [ ] findIndex
+- [ ] findIndex 
